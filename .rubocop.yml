@@ -1,0 +1,8 @@
+Style/SingleSpaceBeforeFirstArg:
+  Enabled: false
+
+Style/TrailingComma:
+  EnforcedStyleForMultiline: comma
+
+Metrics/LineLength:
+  Max: 120

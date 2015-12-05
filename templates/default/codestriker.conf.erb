@@ -1,0 +1,144 @@
+$db = '<%= @db_dsn %>';
+$dbuser = '<%= @db_user %>';
+$dbpasswd = '<%= @db_password %>';
+
+$admin_users =
+[
+  <% @admins.each do |admin| %>
+    '<%= admin %>',
+  <% end %>
+];
+
+$daemon_email_address = '<%= @mail_from %>';
+
+$mailhost = '<%= @mail_host %>';
+
+<% if @mail_user %>
+$mailuser = '<%= @mail_user %>';
+<% end %>
+<% if @mail_password %>
+$mailuser = '<%= @mail_password %>';
+<% end %>
+
+$mailreplyto = '<%= @mail_reply_to %>';
+
+$use_compression = 1;
+
+$gzip = '<%= @gzip %>';
+$svn = '<%= @svn %>';
+$highlighter = '<%= @highlight %>';
+
+$cvs = '/bin/false';
+$ssh = '/bin/false';
+$p4 = '/bin/false';
+$cleartool = '/bin/false';
+$vss = '/bin/false';
+
+@valid_repositories =
+(
+  <% @repositories.each do |url,| %>
+    '<%= url %>',
+  <% end %>
+);
+
+$repository_name_map =
+{
+  <% @repositories.each do |url, name| %>
+    '<%= url %>' => '<%= name %>',
+  <% end %>
+};
+
+$file_viewer =
+{
+};
+
+@exclude_file_types = ('rtf', 'doc', 'gif', 'bmp', 'jpeg', 'jpg', 'mdb',
+                       'ppt', 'vsd', 'xls', 'zip', 'tgz', 'tar', 'gz',
+                       'opt', 'aps', 'ncb', 'a', 'so', 'dll', 'lib',
+                       'exe', 'png', 'pdf', 'bin', 'out', 'ld', 'fm',
+                       'indd', 'wav', 'o', 'obj', 'mpp', 'vsw', 'jfif',
+                       'tif', 'tiff', 'xbm', 'fnt', 'ttf', 'pfm', 'pfb',
+                       'eps', 'wpj', 'sxi');
+
+$maximum_topic_size_lines = '';
+$suggested_topic_size_lines = '';
+
+$NORMAL_MODE = 0;
+$COLOURED_MODE = 1;
+$COLOURED_MONO_MODE = 2;
+
+$default_topic_create_mode = $COLOURED_MODE;
+
+$default_file_to_view = -1;
+
+@topic_states =
+(
+<% @topic_states.each do |topic_state| %>
+  '<%= topic_state %>',
+<% end %>
+);
+@readonly_states =
+(
+<% @readonly_states.each do |readonly_state| %>
+  '<%= readonly_state %>',
+<% end %>
+);
+
+$allow_searchlist = 1;
+
+@project_states =
+(
+<% @project_states.each do |project_state| %>
+  '<%= project_state %>',
+<% end %>
+);
+
+$email_send_options =
+{
+  comments_sent_to_topic_author => 1,
+  comments_sent_to_commenter => 0,
+  topic_state_change_sent_to_reviewers => 0
+};
+
+$default_tabwidth = 8;
+
+$sort_diffs_by_filename = 1;
+
+$bug_db = 'noconnection';
+$bugtracker = '<%= @bugtracker %>';
+
+$lxr_map =
+{
+};
+
+$topic_text_encoding = 'utf8';
+
+$comment_state_metrics =
+[
+<% @comment_state_metrics.each do |comment_state_metric| %>
+  {
+    name => '<%= comment_state_metric[:name] %>',
+    values =>
+    [
+    <% comment_state_metric[:values].each do |value| %>
+      '<%= value %>',
+    <% end %>
+    ],
+    <% if comment_state_metric[:default_value] %>
+    default_value => '<%= comment_state_metric[:default_value] %>',
+    <% end %>
+    <% if comment_state_metric[:show_on_mainpage] %>
+    show_on_mainpage =>
+    [
+    <% comment_state_metric[:show_on_mainpage].each do |show| %>
+      '<%= show %>',
+    <% end %>
+    ],
+    <% end %>
+  },
+<% end %>
+];
+
+$metric_config = '<%= @metric_config %>';
+
+$title = "<%= @title %>";

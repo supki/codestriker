@@ -1,0 +1,51 @@
+--- ./bin/commit-email-codestriker.pl
++++ ./bin/commit-email-codestriker.pl
+@@ -631,7 +631,7 @@
+ {
+   unless (@_)
+     {
+-      croak "$0: safe_read_from_pipe passed no arguments.\n";
++      croak("$0: safe_read_from_pipe passed no arguments.\n");
+     }
+
+   my $pid = open(SAFE_READ, '-|');
+@@ -678,7 +678,7 @@
+ {
+   unless (@_)
+     {
+-      croak "$0: read_from_process passed no arguments.\n";
++      croak("$0: read_from_process passed no arguments.\n");
+     }
+   my ($status, @output) = &safe_read_from_pipe(@_);
+   if ($status)
+--- ./bin/subversion-post-commit.pl
++++ ./bin/subversion-post-commit.pl
+@@ -92,7 +92,7 @@
+ {
+     unless (@_)
+     {
+-	croak "$0: safe_read_from_pipe passed no arguments.\n";
++       croak("$0: safe_read_from_pipe passed no arguments.\n");
+     }
+     
+     my $pid = open(SAFE_READ, '-|');
+@@ -139,7 +139,7 @@
+ {
+     unless (@_)
+     {
+-	croak "$0: read_from_process passed no arguments.\n";
++       croak("$0: read_from_process passed no arguments.\n");
+     }
+     my ($status, @output) = &safe_read_from_pipe(@_);
+     if ($status)
+--- ./lib/Codestriker.pm
++++ ./lib/Codestriker.pm
+@@ -566,7 +566,7 @@
+             my $system_line =
+               "$command_line > \"$stdout_filename\" 2> \"$stderr_filename\"";
+             system($system_line) == 0 ||
+-              croak "Failed to execute $system_line: $!\n";
++              croak("Failed to execute $system_line: $!\n");
+
+             open(TMP_STDOUT, $stdout_filename);
+             binmode TMP_STDOUT;

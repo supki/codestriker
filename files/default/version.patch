@@ -1,0 +1,11 @@
+--- ./bin/install.pl
++++ ./bin/install.pl
+@@ -236,7 +236,7 @@ sub have_vers {
+     $vnum = ${"${pkg}::VERSION"} || ${"${pkg}::Version"} || 0;
+     $vnum = -1 if $@;
+
+-    if ($vnum eq "-1") { # string compare just in case it's non-numeric
++    if (!ref($vnum) && $vnum eq "-1") { # string compare just in case it's non-numeric
+         if ( $optional ) {
+             $vstr = "ok: not found, optional";
+         } else {
