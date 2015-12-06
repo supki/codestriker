@@ -1,5 +1,6 @@
 codestriker Cookbook
 ====================
+[![Circle CI](https://circleci.com/gh/supki/codestriker.svg?style=shield)](https://circleci.com/gh/supki/codestriker)
 
 Installs Codestriker from the tarball distribution.
 

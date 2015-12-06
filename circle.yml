@@ -1,0 +1,12 @@
+machine:
+  services:
+    - 'docker'
+  ruby:
+    version: '2.1.5'
+
+test:
+  override:
+    - 'bundle exec kitchen converge mysql'
+    - 'bundle exec kitchen converge postgresql'
+    - 'bundle exec foodcritic .'
+    - 'bundle exec rubocop .'
