@@ -1,0 +1,11 @@
+In newer highlight versions, `--xhtml` is an unknown option.
+--- ./lib/Codestriker/Http/HighlightLineFilter.pm
++++ ./lib/Codestriker/Http/HighlightLineFilter.pm
+@@ -47,7 +47,6 @@
+     my @args = ();
+     push @args, '-i';
+     push @args, $input_filename;
+-    push @args, '--xhtml';
+     push @args, '-f';
+     push @args, '-t';
+     push @args, $self->{tabwidth};

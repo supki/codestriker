@@ -5,13 +5,13 @@ default['codestriker']['tarball']['checksum'] = 'c7b31c3377f48f22eccbe3683675e07
 default['codestriker']['user'] = 'codestriker'
 default['codestriker']['use_existing_user'] = false
 default['codestriker']['group'] = 'codestriker'
-default['codestriker']['dir'] = '/opt/codestriker'
+default['codestriker']['dir'] = '/opt/codestriker/www'
 
-default['codestriker']['patch'] = %w(croak.patch version.patch)
+default['codestriker']['patch'] = %w(croak.patch version.patch defined_array.patch highlight.patch css.patch)
 
 default['codestriker']['packages'] = {
   'debian' => {
-    'common' => %w(libswitch-perl libdbi-perl libwww-perl libtemplate-perl subversion highlight),
+    'common' => %w(libswitch-perl libdbi-perl libwww-perl libtemplate-perl libcgi-pm-perl subversion highlight),
     'patch' => %w(patch),
     'mysql' => %w(libdbd-mysql-perl),
     'postgresql' => %w(libdbd-pg-perl),

@@ -1,0 +1,32 @@
+In Perl 5.22, `defined(@array)` is deprecated syntax.
+--- ./lib/Codestriker.pm
++++ ./lib/Codestriker.pm
+@@ -483,7 +483,7 @@
+
+ # Return true if project support has been enabled.
+ sub projects_disabled {
+-    if (defined @Codestriker::project_states) {
++    if (@Codestriker::project_states) {
+         return $#Codestriker::project_states == -1;
+     } elsif (defined $Codestriker::allow_projects) {
+         # Support for older codestriker.conf files.
+@@ -506,7 +506,7 @@
+ # status is in the list of readonly_states in codestriker.conf.
+ sub topic_readonly {
+     my ($topic_state) = @_;
+-    if (defined @Codestriker::readonly_states) {
++    if (@Codestriker::readonly_states) {
+         return (grep /^$topic_state$/, @Codestriker::readonly_states);
+     } else {
+         # Backwards compatibility for older configs.
+--- ./lib/Codestriker/FileParser/Parser.pm
++++ ./lib/Codestriker/FileParser/Parser.pm
+@@ -190,7 +190,7 @@
+
+     # Only include those files whose extension is not in
+     # @Codestriker::exclude_file_types, provided it is defined.
+-    return @diffs unless defined @Codestriker::exclude_file_types;
++    return @diffs unless @Codestriker::exclude_file_types;
+
+     my @trimmed_diffs = ();
+     foreach my $curr (@diffs) {

@@ -2,27 +2,27 @@ codestriker = node['codestriker']
 
 file_cache = Chef::Config[:file_cache_path]
 tarball_path = "#{file_cache}/codestriker-#{codestriker['tarball']['version']}.tar.gz"
-codestriker_path = "#{codestriker['dir']}/codestriker-#{codestriker['tarball']['version']}"
+home_dir = '/opt/codestriker'
 
 platform_family = node['platform_family']
 platform_packages = codestriker['packages'][platform_family]
 platform_paths = codestriker['paths'][platform_family]
 
-ps = platform_packages['common']
-ps += platform_packages['patch'] unless codestriker['patch'].empty?
-ps += case codestriker['db']['dsn']
-      when /^DBI:mysql:/i
-        platform_packages['mysql']
-      when /^DBI:Pg:/i
-        platform_packages['postgresql']
-      when /^DBI:Oracle:/i
-        platform_packages['oracle']
-      when /^DBI:ODBC:/i
-        platform_packages['sqlserver']
-      end
+packages = platform_packages['common']
+packages += platform_packages['patch'] unless codestriker['patch'].empty?
+packages += case codestriker['db']['dsn']
+            when /^DBI:mysql:/i
+              platform_packages['mysql']
+            when /^DBI:Pg:/i
+              platform_packages['postgresql']
+            when /^DBI:Oracle:/i
+              platform_packages['oracle']
+            when /^DBI:ODBC:/i
+              platform_packages['sqlserver']
+            end
 
-ps.each do |p|
-  package p
+packages.each do |name|
+  package name
 end
 
 remote_file codestriker['tarball']['url'] do
@@ -32,7 +32,7 @@ remote_file codestriker['tarball']['url'] do
 end
 
 if codestriker['use_existing_user']
-  directory codestriker['dir'] do
+  directory home_dir do
     owner codestriker['user']
     group codestriker['group']
   end
@@ -42,34 +42,39 @@ else
   user codestriker['user'] do
     password '*'
     group    codestriker['group']
-    home     codestriker['dir']
+    home     home_dir
     shell    '/bin/false'
     system   true
     supports manage_home: true
   end
 end
 
-execute 'codestriker::unpack_tarball' do
-  command "tar xf #{tarball_path} -C #{codestriker['dir']}"
+directory codestriker['dir'] do
+  user  codestriker['user']
+  group codestriker['group']
+end
+
+execute "#{cookbook_name}::unpack_tarball" do
+  command "tar xf #{tarball_path} --directory #{codestriker['dir']} --strip-components 1"
   user    codestriker['user']
-  creates codestriker_path
+  creates "#{codestriker['dir']}/bin/install.pl"
 end
 
 codestriker['patch'].each do |patch|
   patch_file = "#{file_cache}/#{patch}"
   cookbook_file patch_file
 
-  execute "codestriker::apply_#{patch}" do
+  execute "#{cookbook_name}::apply_#{patch}" do
     command "patch -p1 < #{patch_file}"
-    cwd     codestriker_path
+    cwd     codestriker['dir']
     user    codestriker['user']
     only_if "patch -p1 --dry-run < #{patch_file}"
 
-    notifies :run, 'execute[codestriker::run_install.pl]'
+    notifies :run, "execute[#{cookbook_name}::run_install.pl]"
   end
 end
 
-template "#{codestriker_path}/codestriker.conf" do
+template "#{codestriker['dir']}/codestriker.conf" do
   owner     codestriker['user']
   group     codestriker['group']
   mode      '0700'
@@ -105,12 +110,12 @@ template "#{codestriker_path}/codestriker.conf" do
     title: codestriker['title'],
   )
 
-  notifies :run, 'execute[codestriker::run_install.pl]'
+  notifies :run, "execute[#{cookbook_name}::run_install.pl]"
 end
 
-execute 'codestriker::run_install.pl' do
+execute "#{cookbook_name}::run_install.pl" do
   command './install.pl'
-  cwd     "#{codestriker_path}/bin"
+  cwd     "#{codestriker['dir']}/bin"
   user    codestriker['user']
 
   action :nothing
