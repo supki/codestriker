@@ -1,6 +1,7 @@
 codestriker Cookbook
 ====================
 [![Circle CI](https://circleci.com/gh/supki/codestriker.svg?style=shield)](https://circleci.com/gh/supki/codestriker)
+[![Cookbook Version](https://img.shields.io/cookbook/v/codestriker.svg)](https://community.opscode.com/cookbooks/codestriker)
 
 Installs [Codestriker](http://codestriker.sourceforge.net/) from the tarball distribution.
 
