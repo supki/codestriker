@@ -30,5 +30,6 @@ default['codestriker']['comment_state_metrics'] = [
 default['codestriker']['metric_config'] = 'none'
 
 default['codestriker']['title'] = 'Codestriker $Codestriker::VERSION'
+default['codestriker']['css'] = ''
 
 default['codestriker']['repositories'] = {}
