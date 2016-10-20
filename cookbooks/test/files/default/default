@@ -10,7 +10,7 @@ server {
 		try_files $uri $uri/ =404;
 	}
 
-	location = /codestriker {
+	location /codestriker {
 		root /opt/codestriker/codestriker-1.9.10/cgi-bin;
 		fastcgi_index codestriker.pl;
 
