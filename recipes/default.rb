@@ -110,6 +110,7 @@ template "#{codestriker['dir']}/codestriker.conf" do
     metric_config: codestriker['metric_config'],
 
     title: codestriker['title'],
+    css: codestriker['css'],
   )
 
   notifies :run, "execute[#{cookbook_name}::run_install.pl]"
