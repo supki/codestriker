@@ -61,10 +61,12 @@ execute "#{cookbook_name}::unpack_tarball" do
 end
 
 codestriker['patch'].each do |patch|
-  patch_file = "#{file_cache}/#{patch}"
-  cookbook_file patch_file
+  patch_file = "#{file_cache}/#{patch[:name]}"
+  cookbook_file patch_file do
+    cookbook patch[:cookbook]
+  end
 
-  execute "#{cookbook_name}::apply_#{patch}" do
+  execute "#{cookbook_name}::apply_#{patch[:name]}" do
     command "patch -p1 < #{patch_file}"
     cwd     codestriker['dir']
     user    codestriker['user']

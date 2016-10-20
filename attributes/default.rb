@@ -7,7 +7,10 @@ default['codestriker']['use_existing_user'] = false
 default['codestriker']['group'] = 'codestriker'
 default['codestriker']['dir'] = '/opt/codestriker/www'
 
-default['codestriker']['patch'] = %w(croak.patch version.patch defined_array.patch highlight.patch css.patch)
+default['codestriker']['patch'] =
+  %w(croak.patch version.patch defined_array.patch highlight.patch css.patch).map do |name|
+    { cookbook: 'codestriker', name: name }
+  end
 
 default['codestriker']['packages'] = {
   'debian' => {
