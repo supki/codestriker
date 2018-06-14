@@ -14,17 +14,18 @@ default['codestriker']['path']['gzip'] = nil
 default['codestriker']['path']['svn'] = nil
 default['codestriker']['path']['highlight'] = nil
 
-default['codestriker']['topic_states'] = %w(Open Closed Committed Obsoleted Deleted)
-default['codestriker']['readonly_states'] = %w(Closed Committed Obsoleted Deleted)
-default['codestriker']['project_states'] = %w(Open)
+default['codestriker']['topic_states'] = %w[Open Closed Committed Obsoleted Deleted]
+default['codestriker']['readonly_states'] = %w[Closed Committed Obsoleted Deleted]
+default['codestriker']['project_states'] = %w[Open]
 
 default['codestriker']['bugtracker'] = ''
 
 default['codestriker']['comment_state_metrics'] = [
-  { name:             'Status',
-    values:           %w(Submitted Invalid Completed),
+  {
+    name:             'Status',
+    values:           %w[Submitted Invalid Completed],
     default_value:    'Submitted',
-    show_on_mainpage: %w(Submitted),
+    show_on_mainpage: %w[Submitted],
   },
 ]
 default['codestriker']['metric_config'] = 'none'

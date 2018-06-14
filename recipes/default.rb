@@ -39,13 +39,13 @@ if codestriker['use_existing_user']
 else
   group codestriker['group']
 
-  user codestriker['user'] do
+  user codestriker['user'] do # ~FC009
     password '*'
     group    codestriker['group']
     home     home_dir
     shell    '/bin/false'
     system   true
-    supports manage_home: true
+    supports manage_home: true # ~FC080
   end
 end
 

@@ -1,6 +1,6 @@
 cache = Chef::Config[:file_cache_path]
 
-%w(nginx fcgiwrap).each do |p|
+%w[nginx fcgiwrap].each do |p|
   package p
 
   execute "start #{p}" do

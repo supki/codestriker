@@ -8,24 +8,24 @@ default['codestriker']['group'] = 'codestriker'
 default['codestriker']['dir'] = '/opt/codestriker/www'
 
 default['codestriker']['patch'] =
-  %w(croak.patch version.patch defined_array.patch highlight.patch css.patch).map do |name|
+  %w[croak.patch version.patch defined_array.patch highlight.patch css.patch].map do |name|
     { cookbook: 'codestriker', name: name }
   end
 
 default['codestriker']['packages'] = {
   'debian' => {
-    'common' => %w(libswitch-perl libdbi-perl libwww-perl libtemplate-perl libcgi-pm-perl subversion highlight),
-    'patch' => %w(patch),
-    'mysql' => %w(libdbd-mysql-perl),
-    'postgresql' => %w(libdbd-pg-perl),
+    'common' => %w[libswitch-perl libdbi-perl libwww-perl libtemplate-perl libcgi-pm-perl subversion highlight],
+    'patch' => %w[patch],
+    'mysql' => %w[libdbd-mysql-perl],
+    'postgresql' => %w[libdbd-pg-perl],
     'oracle' => [],
     'sqlserver' => [],
   },
   'suse' => {
-    'common' => %w(tar perl perl-DBI perl-libwww-perl perl-Template-Toolkit subversion),
-    'patch' => %w(patch),
-    'mysql' => %w(perl-DBD-mysql),
-    'postgresql' => %w(perl-DBD-Pg),
+    'common' => %w[tar perl perl-DBI perl-libwww-perl perl-Template-Toolkit subversion],
+    'patch' => %w[patch],
+    'mysql' => %w[perl-DBD-mysql],
+    'postgresql' => %w[perl-DBD-Pg],
     'oracle' => [],
     'sqlserver' => [],
   },
